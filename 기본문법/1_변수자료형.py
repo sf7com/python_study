@@ -66,4 +66,4 @@ num2=3.14
 numstr="58.11"
 print(type(num1))
 print(type(num2))
-print(type(numstr))
+print(type(numstr)) 
