@@ -117,3 +117,94 @@ for hour in range(24):
             #print(f'{hour}:{min}:{sec}')
             cnt += (str(hour)+str(min)+str(sec)).count('3')
 print(f"3의 개수{cnt}")
+
+#숫자 4각형 출력1
+#01 02 03 04 05
+#06 07 08 09 10
+#11 12 13 14 15
+#16 17 18 19 20
+row,col=4,5
+cnt = 0
+for i in range(col):
+    for j in range(row):
+        cnt += 1
+        if cnt % col == 0:
+            print("%02d" %(cnt))
+        else:
+            print("%02d" %(cnt),end=" ")
+
+for r in range(1,row+1):
+    for c in range(1,col+1):
+        print(f'{col*(r-1)+c:0>2}', end=' ')
+    print()
+            
+
+#숫자 4각형 출력2
+#01 02 03 04 05
+#10 09 08 07 06
+#11 12 13 14 15
+#20 19 18 17 16
+row,col=4,5
+
+for r in range(1,row+1):
+    if r%2==1:
+        for c in range(1,col+1):
+            print(f'{col*(r-1)+c:02}', end=' ')
+    else :
+        for c in range(col,0,-1):
+            print(f'{col*(r-1)+c:02}', end=' ')
+    print()
+
+#직각삼각형
+height = 10
+for i in range(1,height+1):
+    print("*"*i)
+#공백이 먼저 출력되는 직각삼각형
+for i in range(1,height+1):
+    print(" "*(height-1) + "*"*i)
+#이등변 삼각형
+for i in range(1,height+1):
+    print(" "*(height-i)+"*"*(2*i-1))
+
+#다이아몬드
+for i in range(1,height+1):
+    print(" "*(height-i)+"*"*(2*i-1))
+for i in range(height-1,0,-1):
+    print(" "*(height-i)+"*"*(2*i-1))
+
+#2-4) while 문
+i=1
+while i<10:
+    print(i)
+    i+=1
+
+#-------------------------
+#반복문 제어
+#1) break
+#2) continue
+
+for i in range(10):
+    if i==5:
+        break
+    print(i)
+
+#짝수만 출력
+for i in range(10):
+    if i%2 ==1 :
+        continue
+    print(i)
+
+#3) for ~ else 문
+#else : 반복문이 완전히 끝났을 때 마지막에 실행함
+#잘 안쓰임
+for i in range(10):
+    print(i)
+else :
+    print("프로그램 종료")
+#else문 실행안함
+for i in range(10):
+    if i==5:
+        break
+    print(i)
+else :
+    print("프로그램 종료")
