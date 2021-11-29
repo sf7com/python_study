@@ -210,8 +210,10 @@ for num in s1:
 #4) 딕셔너리와 반복문
 person = {'name':'홍길동','age':30,'addr':'수원시'}
 for key in person.keys() :
+    #get() 키값이 없으면 None으로 리턴,
+    #default 값을 설정 가능
     print(key,person.get(key))
-
+    #person[key] 키값이 없으면 예외발생
 for val in person.values() :
     print(val)
 
@@ -241,3 +243,4 @@ from collections import Counter
 fruitCounter = Counter(fruits)
 print(fruitCounter)
 print(fruitCounter['사과'])
+#------------------------------------------------------------------------
