@@ -113,3 +113,45 @@ with open('./기본문법/data/수원시행정구역.csv', 'r', encoding='euc-kr
             dongPath = folderPath + "/" + gu + "/" +dong
             if not os.path.isdir(dongPath) and dong !="":
                 os.makedirs(dongPath)
+
+#-----------------------------------------------------------------------------------
+#람다식 : 함수의 축약적인 표현
+#lambda 매개변수 : 식
+
+#                 매개변수 : 리턴값
+getCircleArrea = lambda r : r*r*3.14
+getCircleArrea(9)
+
+def getCircleArea2(r) :
+    return r*r*3.14
+
+fruits = [('사과',3),('딸기',5),('포도',1)]
+#과일과 갯수가 튜플형태로 리스트에 저장이 됨
+
+#과일 갯수 순으로 위으 리스트를 정렬
+print(sorted(fruits)) #첫번째 값으로 정렬
+#과일 이름 사전순으로 정렬 
+
+#key 매개변수를 통해 정렬기준이 되는 데이터 설정
+print(sorted(fruits, key=lambda x:x[1]))
+#내림차순
+print(sorted(fruits, key=lambda x:x[1], reverse=True))
+
+from 기본문법.person import *
+p1 = Person("김하나", 30,"여자")
+p2 = Person("홍길동", 27,"남자")
+p3 = Person("임꺽정", 40,"남자")
+pList = [p1,p2,p3]
+
+pList = sorted(pList, key=lambda x:x.age)
+for p in pList :
+    print(p.name)
+
+#람다식 함수매개변수로 활용
+def searchMember(memberList, condFunc):
+    for member in memberList :
+        if condFunc(member):
+            print(member)
+
+searchMember(memberList, lambda x:'수원시' in x['Address'])
+searchMember(memberList, lambda x:'강동원' == x['Name'])
