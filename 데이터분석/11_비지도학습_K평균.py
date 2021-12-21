@@ -92,3 +92,6 @@ plt.ylabel('inertial')
 plt.show()
 
 #최적의 K값은 3으로 선정
+
+#2)실루엣 분석
+#클러스터 내에
