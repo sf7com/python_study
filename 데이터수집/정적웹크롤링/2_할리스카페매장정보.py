@@ -3,17 +3,18 @@ from bs4 import BeautifulSoup
 serviceUrl = 'https://www.hollys.co.kr/store/korea/korStore2.do?'
 
 itemList = []
-for page in range(1, 57) : 
+for page in range(1, 2) : 
     param = f'pageNo={page}'
     url = serviceUrl+param
     html = getRequestUrl(url)
     soup = BeautifulSoup(html, 'html.parser')
+    #html
     #print(soup.prettify()) #HTML정보를 예쁘게 정렬해서 출력
     tag_tbody = soup.find('tbody') #tbody태그 하나만 찾아서 리턴
-    tag_tbody
     tag_trs = tag_tbody.find_all('tr') #tr태그들 찾아서 리스트로 반환
     tag_trs
     for tr in tag_trs :
+        #한행씩
         tag_tds = tr.find_all('td')
         itemDic = {}
         itemDic['지역정보'] = tag_tds[0].text #지역정보    
@@ -24,7 +25,7 @@ for page in range(1, 57) :
         itemList.append(itemDic)
 
 print("총 매장 개수 : ", len(itemList))
-
+itemList
 #데이터 저장
 import json
 with open('./데이터수집/정적웹크롤링/할리스카페매장.json', 'w',
@@ -48,6 +49,9 @@ import pandas as pd
 df = pd.DataFrame(itemList, columns=itemList[0].keys())
 df.head()
 df.info()
-df.to_csv('./데이터수집/정적웹크롤링/할리스카페매장2.csv', encoding='utf-8', index=True)
+df.to_csv('./데이터수집/정적웹크롤링/할리스카페매장2.csv',
+    encoding='utf-8', index=True)
 
-df.to_json('./데이터수집/정적웹크롤링/할리스카페매장2.json',orient='records', force_ascii=False, indent=4)
+df.to_json('./데이터수집/정적웹크롤링/할리스카페매장2.json',
+    orient='records', force_ascii=False, indent=4)
+

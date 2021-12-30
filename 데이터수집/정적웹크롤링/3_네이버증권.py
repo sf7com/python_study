@@ -2,19 +2,20 @@ from 데이터수집.WebCrawling import getRequestUrl
 from bs4 import BeautifulSoup
 
 itemList = []
-for page in range(1, 11) :
+for page in range(1, 2) :
     url = f'https://finance.naver.com/item/sise_day.naver?code=005930&page={page}'
     html = getRequestUrl(url, 'euc-kr')
     #html
     soup = BeautifulSoup(html, 'html.parser')
     tag_trs = soup.find_all('tr', attrs={"onmouseover" : "mouseOver(this)"})
+    
     for tr in tag_trs :
         tds = tr.find_all('td')
         item = {}
         item['날짜'] = tds[0].text
         item['종가'] = int(tds[1].text.replace(",",""))
         className = ''.join(tds[2].find('span')['class'])
-        #className
+        className
         if 'nv' in className :
             item['전일비'] = "-"+tds[2].text
         else : 
@@ -32,7 +33,7 @@ itemList
 
 #날짜별 종가의 시각화
 import matplotlib.pyplot as plt
-dateList = [item['날짜'] for item in itemList[::-1]] #날짜 오름 차순
+dateList = [item['날짜'][5:] for item in itemList[::-1]] #날짜 오름 차순
 priceList = [item['종가'] for item in itemList[::-1]]
 plt.plot(dateList, priceList)
 plt.title("Samsung Stock")
@@ -43,4 +44,9 @@ plt.show()
 
 import pandas as pd
 df = pd.DataFrame(itemList, columns=itemList[0].keys())
-df.to_csv('./데이터수집/정적웹크롤링/삼성전자주가.csv', index=False, encoding='utf-8')
+df.to_csv('./데이터수집/정적웹크롤링/삼성전자주가.csv', index=False,
+    encoding='utf-8')
+
+
+
+#H

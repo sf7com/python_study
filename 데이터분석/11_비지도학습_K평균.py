@@ -94,4 +94,47 @@ plt.show()
 #최적의 K값은 3으로 선정
 
 #2)실루엣 분석
-#클러스터 내에
+#클러스터 내에 있는 데이터가 얼마나 조밀하게 모여있는지를 측정하고 a(i)
+#데이터가 다른 클러스터와 얼마나 떨어져있는 가를 나타내는 클러스터 분리도 b(i)를
+#이용한 실루엣 계수 s(i)를 계산한다.
+#실루엣 계수 -1~1사이의 값을 갖고, 1에 가까울수록 좋은 군집화
+from sklearn.metrics import silhouette_samples
+from matplotlib import cm
+def silhouetteViz(n_cluster, X_features): 
+    
+    kmeans = KMeans(n_clusters=n_cluster, random_state=0)
+    Y_labels = kmeans.fit_predict(X_features)
+    
+    silhouette_values = silhouette_samples(X_features, Y_labels, metric='euclidean')
+
+    y_ax_lower, y_ax_upper = 0, 0
+    y_ticks = []
+
+    for c in range(n_cluster):
+        c_silhouettes = silhouette_values[Y_labels == c]
+        c_silhouettes.sort()
+        y_ax_upper += len(c_silhouettes)
+        color = cm.jet(float(c) / n_cluster)
+        plt.barh(range(y_ax_lower, y_ax_upper), c_silhouettes,
+                 height=1.0, edgecolor='none', color=color)
+        y_ticks.append((y_ax_lower + y_ax_upper) / 2.)
+        y_ax_lower += len(c_silhouettes)
+    
+    silhouette_avg = np.mean(silhouette_values)
+    plt.axvline(silhouette_avg, color='red', linestyle='--')
+    plt.title('Number of Cluster : '+ str(n_cluster)+'\n' \
+              + 'Silhouette Score : '+ str(round(silhouette_avg,3)))
+    plt.yticks(y_ticks, range(n_cluster))   
+    plt.xticks([0, 0.2, 0.4, 0.6, 0.8, 1])
+    plt.ylabel('Cluster')
+    plt.xlabel('Silhouette coefficient')
+    plt.tight_layout()
+    plt.show()
+
+    silhouetteViz(2, fruits_2d) #0.393
+    silhouetteViz(3, fruits_2d) #0.242
+    silhouetteViz(4, fruits_2d) #0.288
+    silhouetteViz(5, fruits_2d) #0.228
+    silhouetteViz(6, fruits_2d) #0.211
+#실루엣 방법 최적의 K는 2
+#     
